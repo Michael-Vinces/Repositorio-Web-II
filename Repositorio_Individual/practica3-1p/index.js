@@ -11,8 +11,6 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
 (async () => {
     try {
         const estadoDeLaConexion = await mongoose.connect(conneccionURL) // Conexión a la BD
-
-
         const estudiante1 = new Estudiantes({
             Nombre: "Michael Vinces",
             Identificacion: "1313198382",
@@ -27,8 +25,7 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
         })
         const guardaEstudiante1 = await estudiante1.save()
         const guardaEstudiante2 = await estudiante2.save()
-
-
+        //-----------------------------------------------------------------------------------------------
         const evaluacion1 = new Evaluaciones({
             Nombre: "Examen final",
             Asignatura: "Programacion",
@@ -41,8 +38,7 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
         })
         const guardaEvaluacion1 = await evaluacion1.save()
         const guardaEvaluacion2 = await evaluacion2.save()
-
-
+        //-----------------------------------------------------------------------------------------------
         const registro1 = new Registros({
             ID_Estudiante: [
                 { ID_Estudiante: guardaEstudiante1._id },
@@ -64,11 +60,12 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
         })
         const guardaRegistro1 = await registro1.save()
         const guardaRegistro2 = await registro2.save()
+        //-----------------------------------------------------------------------------------------------
     } catch (error) {
         console.log(error);
     }
 
-    // crear modificar eliminar y consultar
+    // CRUD que incluye CREAR, ACTUALIZAR, ELIMINAR Y MOSTRAR para Estudiantes
     const crearEstudiante = async (x) => {
         const nuevoEstudiante = new Estudiantes(x)
         try {
@@ -108,7 +105,7 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
     }
 
 
-
+    // Ejecutar los CRUDS de estudiantes
     const nuevoEstudiante = {
         Nombre: "María Pérez",
         Identificacion: "1234567890",
@@ -125,7 +122,7 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
     //await eliminarEstudiante(idEstudianteEliminar)
     //await leerEstudiantes()
 
-
+    // CRUD que incluye CREAR, ACTUALIZAR, ELIMINAR Y MOSTRAR para Estudiantes
     const crearEvaluacion = async (x) => {
         const nuevaEvaluacion = new Evaluaciones(x)
         try {
@@ -164,6 +161,7 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
         }
     }
 
+    // Ejecutar los CRUDS de Evaluaciones
 
     const nuevaEvaluacion = {
         Nombre: "Trabajo de investigación",
@@ -180,42 +178,92 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
     //await eliminarEvaluacion(idEvaluacionEliminar)
     //await leerEvaluaciones()
 
-// revisarrrrrrrrrrrrr------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------------
+
+    // CRUD que incluye CREAR, ACTUALIZAR, ELIMINAR Y MOSTRAR de la entidad transaccional Registro
     const crearRegistro = async (registro) => {
         const nuevoRegistro = new Registros(registro)
         try {
-          const estudiante = await Estudiantes.findById(registro.ID_Estudiante)
-          const evaluacion = await Evaluaciones.findById(registro.ID_Evaluacion)
-      
-          if (!estudiante || !evaluacion) {
-            console.log("Estudiante o evaluación no encontrados")
-            return
-          }
-      
-          nuevoRegistro.Nombre = estudiante.Nombre
-          nuevoRegistro.Asignatura = evaluacion.Asignatura
-          nuevoRegistro.Docente = evaluacion.Docente
-      
-          const registroGuardado = await nuevoRegistro.save()
-          console.log("Registro creado:", registroGuardado)
-        } catch (error) {
-          console.log(error)
-        }
-      }
+            const estudiante = await Estudiantes.findById(registro.ID_Estudiante)
+            const evaluacion = await Evaluaciones.findById(registro.ID_Evaluacion)
 
-      const nuevoRegistro = {
-        ID_Estudiante: estudiante1._id,
-        ID_Evaluacion: evaluacion1._id,
+            if (!estudiante || !evaluacion) {
+                console.log("Estudiante o evaluación no encontrados")
+                return
+            }
+
+            nuevoRegistro.Nombre = estudiante.Nombre
+            nuevoRegistro.Asignatura = evaluacion.Asignatura
+            nuevoRegistro.Docente = evaluacion.Docente
+
+            const registroGuardado = await nuevoRegistro.save()
+            console.log("Registro creado:", registroGuardado)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const Estudianteprueba = {
+        _id: "644cafa90a90d25913f7c226"
+    }
+    const Evaluacionprueba = {
+        _id: "644cafaa0a90d25913f7c22a"
+    }
+    const nuevoRegistro = {
+        ID_Estudiante: Estudianteprueba,
+        ID_Evaluacion: Evaluacionprueba,
         Fecha: "2022-02-28",
         Hora: "2:00 PM",
         NotaMaxima: 100,
         NotaObtenida: 18
-      }
-      await crearRegistro(nuevoRegistro)
+    }
+    await crearRegistro(nuevoRegistro)
 
 
-/*
+
+    const leerRegistros = async () => {
+        try {
+            const registros = await Registros.find()
+            console.log("Registros:", registros)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const actualizarRegistro = async (id, nuevosDatos) => {
+        try {
+            const registroActualizado = await Registros.findByIdAndUpdate(
+                id,
+                nuevosDatos,
+                { new: true }
+            )
+            console.log("Registro actualizado:", registroActualizado)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const eliminarRegistro = async (id) => {
+        try {
+            const registroEliminada = await Registros.findByIdAndDelete(id)
+            console.log("Registro eliminado:", registroEliminada)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    // Ejecutar los CRUDS de la entidad transaccional Registros
+    //await leerRegistros()
+
+    const idRegistroActualizar = "61655ba38d5705f3e9be7c0f"
+    const nuevosDatos = {
+        Fecha: "2023-04-28",
+        Hora: "2:00 PM"
+    }
+    //await actualizarTransaccion(idRegistroActualizar, nuevosDatos)
+
+    const idRegistroEliminar = "61655ba38d5705f3e9be7c0f"
+    //await eliminarRegistro(idRegistroEliminar)
+
     // Listar estudiantes con for
     const estudiantes = await Estudiantes.find()
     for (let i = 0; i < estudiantes.length; i++) {
@@ -233,5 +281,5 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
     //se recorre el arreglo mediante for
     for (const registro in registros) {
         console.log(registros[registro])
-    }*/
+    }
 })();
