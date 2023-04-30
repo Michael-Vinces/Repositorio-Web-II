@@ -64,7 +64,6 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
     } catch (error) {
         console.log(error);
     }
-
     // CRUD que incluye CREAR, ACTUALIZAR, ELIMINAR Y MOSTRAR para Estudiantes
     const crearEstudiante = async (x) => {
         const nuevoEstudiante = new Estudiantes(x)
@@ -103,8 +102,6 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
             console.log(error)
         }
     }
-
-
     // Ejecutar los CRUDS de estudiantes
     const nuevoEstudiante = {
         Nombre: "María Pérez",
@@ -201,24 +198,6 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
             console.log(error)
         }
     }
-    const Estudianteprueba = {
-        _id: "644cafa90a90d25913f7c226"
-    }
-    const Evaluacionprueba = {
-        _id: "644cafaa0a90d25913f7c22a"
-    }
-    const nuevoRegistro = {
-        ID_Estudiante: Estudianteprueba,
-        ID_Evaluacion: Evaluacionprueba,
-        Fecha: "2022-02-28",
-        Hora: "2:00 PM",
-        NotaMaxima: 100,
-        NotaObtenida: 18
-    }
-    await crearRegistro(nuevoRegistro)
-
-
-
     const leerRegistros = async () => {
         try {
             const registros = await Registros.find()
@@ -226,36 +205,48 @@ const conneccionURL = "mongodb+srv://Michael-Vinces:Michael-Vince@cluster0.magwd
         } catch (error) {
             console.log(error)
         }
-    }
-
+    } 
     const actualizarRegistro = async (id, nuevosDatos) => {
         try {
             const registroActualizado = await Registros.findByIdAndUpdate(
                 id,
                 nuevosDatos,
                 { new: true }
-            )
-            console.log("Registro actualizado:", registroActualizado)
-        } catch (error) {
-            console.log(error)
+                )
+                console.log("Registro actualizado:", registroActualizado)
+            } catch (error) {
+                console.log(error)
+            }
+        }       
+        const eliminarRegistro = async (id) => {
+            try {
+                const registroEliminada = await Registros.findByIdAndDelete(id)
+                console.log("Registro eliminado:", registroEliminada)
+            } catch (error) {
+                console.log(error)
+            }
         }
-    }
-
-    const eliminarRegistro = async (id) => {
-        try {
-            const registroEliminada = await Registros.findByIdAndDelete(id)
-            console.log("Registro eliminado:", registroEliminada)
-        } catch (error) {
-            console.log(error)
+        
+        // Ejecutar los CRUDS de la entidad transaccional Registros
+        const Estudianteprueba = {
+            _id: "644cafa90a90d25913f7c226"
         }
-    }
-
-
-    // Ejecutar los CRUDS de la entidad transaccional Registros
-    //await leerRegistros()
-
-    const idRegistroActualizar = "61655ba38d5705f3e9be7c0f"
-    const nuevosDatos = {
+        const Evaluacionprueba = {
+            _id: "644cafaa0a90d25913f7c22a"
+        }
+        const nuevoRegistro = {
+            ID_Estudiante: Estudianteprueba,
+            ID_Evaluacion: Evaluacionprueba,
+            Fecha: "2022-02-28",
+            Hora: "2:00 PM",
+            NotaMaxima: 100,
+            NotaObtenida: 18
+        }  
+        //await crearRegistro(nuevoRegistro)
+        //await leerRegistros()
+        
+        const idRegistroActualizar = "61655ba38d5705f3e9be7c0f"
+        const nuevosDatos = {
         Fecha: "2023-04-28",
         Hora: "2:00 PM"
     }
