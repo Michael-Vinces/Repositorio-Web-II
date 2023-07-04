@@ -1,0 +1,51 @@
+version: '3'
+
+
+services:
+  estudiantes:
+    build: ./Estudiante
+    depends_on:
+      - dataestudiantes
+    environment:
+      - PORT=2500
+      - MONGODB_CNN=mongodb://dataestudiantes:27017/test
+    # ports:
+    #   - "2500:2500"
+  evaluaciones:
+    build: ./Evaluacion
+    depends_on:
+      - dataevaluaciones
+    environment:
+      - PORT=2500
+      - MONGODB_CNN=mongodb://dataevaluaciones:27017/test
+    # ports:
+    #   - "2500:2500"
+  registros:
+    build: ./Registro
+    depends_on:
+      - dataregistros
+    environment:
+      - PORT=2500
+      - MONGODB_CNN=mongodb://dataregistros:27017/test
+  dataestudiantes:
+    image: mongo
+    # ports:
+    #   - "27017:27017"
+  dataevaluaciones:
+    image: mongo
+    # ports:
+    #   - "27017:27017"
+  dataregistros:
+    image: mongo
+    # ports:
+    #   - "27017:27017"
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - estudiantes
+      - evaluaciones
+      - registros
