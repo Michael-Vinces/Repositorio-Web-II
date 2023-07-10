@@ -35,7 +35,7 @@ const createRegistro= async (req, res = response)=>{
     if (existRegistro)
     {
         return res.status(400).json({
-            msg:`El Registroo ${ existRegistro.name } ya existe`
+            msg:`El Registro ${ existRegistro.name } ya existe`
         })
     }
 

@@ -12,11 +12,6 @@ const EstudianteSchema = Schema(
             default: true,
             required:true
         },
-        id:{
-            type: Number,
-            required: [ true, 'El id del estudiante es necesario'],
-            unique:true
-        },    
         identificationCard:{
             type: String,
             required: true,

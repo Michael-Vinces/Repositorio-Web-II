@@ -3,11 +3,6 @@ const { model, Schema } = require('mongoose');
 
 const evaluacionSchema = Schema(
     {
-        id:{
-            type: Number,
-            required: [ true, 'El id del docente es necesario'],
-            unique:true
-        },
         name:{
             type: String,
             required: true

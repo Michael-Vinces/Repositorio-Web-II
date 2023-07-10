@@ -32,7 +32,7 @@ const createEstudiante = async(req,res=response)=>{
     if (existEstudiante)
     {
         return res.status(400).json({
-            msg:`La categoria ${ existeCategoria.name } ya existe`
+            msg:`El estudiante ${ existEstudiante.name } ya existe`
         })
     }
 

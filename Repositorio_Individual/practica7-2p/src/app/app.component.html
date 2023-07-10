@@ -1,0 +1,38 @@
+
+<div>
+  <form #loginForm="ngForm" (ngSubmit)="submitData(loginForm.value)">
+    <div class="main">
+      <div class="input-fields">
+        <input name="name" ngModel placeholder="Nombre" id="name" type="text" class="input-field" />
+      </div>
+      <div class="input-fields">
+        <input name="hour" ngModel placeholder="Hora" id="hour" type="Text" class="input-field" />
+      </div>
+      <div class="input-fields">
+        <input name="date" ngModel placeholder="Fecha" id="date" type="text" class="input-field" />
+      </div>
+      <div class="input-fields">
+        <input name="gradeEarned" ngModel placeholder="Nota Minima" id="gradeEarned" type="number" class="input-field" />
+      </div>
+      <div class="input-fields">
+        <input name="topGrade" ngModel placeholder="Nota Maxima" id="topGrade" type="number" class="input-field" />
+      </div>
+      <button>Crear registro </button>
+    </div>
+  </form>
+
+  <table border="1">
+    <thead>
+      <th>Nombre</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let registro of dataRegistros.registros">
+        <td>{{registro.name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<router-outlet></router-outlet>
